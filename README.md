@@ -1,5 +1,5 @@
 # ContenTube<sub><sup> - The ultimate search engine for videos. No more clickbait!</sup></sub>
-By [Dan](github.com/defroni) and [Jonathan](github.com/CSN3RD)
+By [Dan](https://github.com/defroni) and [Jonathan](https://github.com/CSN3RD)
 
 ## Information Retrieval (IR) Systems
 - We implementetd the search feature using TF-IDF, a heuristic to determine and rank the best matches for a given input query.
