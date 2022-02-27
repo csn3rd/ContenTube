@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			body {
+				width: 90%;
+				height: 90%;
+				margin: auto;
+				margin-top: 5%;
+			}
+
+			h1,h3 {
+				text-align: center;
+			}
+
+			table {
+				border-collapse: collapse;
+				width: 100%;
+				border: 2px solid black;
+			}
+
+			table.center {
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			thead {
+				border-bottom: 2px solid black;
+			}
+
+			th, td {
+				text-align: left;
+				padding: 16px;
+				border: 1px solid grey;
+			}
+
+			tr:nth-child(even) {
+				background-color: #f2f2f2;
+			}
+
+			form {
+				margin: auto;
+				align-content: center;
+			}
+
+			label {
+				margin-left: 2%;
+			}
+
+			input, select {
+				width: 90%;
+				margin: 5px;
+				display: inline-block;
+			}
+
+			a:link, a:visited, a:active {
+				color: blue;
+				text-decoration: underline;
+			}
+
+			a:hover {
+				color: DarkBlue;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		{% if not (success == True or success == False) %}
+			<div style="margin-top: 20%;"></div>
+		{% endif %}
+		
+		<h1>ContenTube</h1>
+		<h3>The ultimate search engine for videos. No more clickbait!<br><p>By <a href="https://github.com/defroni">Dan</a> and <a href="https://github.com/CSN3RD">Jonathan</a></p></h3>
+		<form method="post" action="{{ url_for('result') }}" id="query_form">
+			<label for="input">Query:</label>
+			
+			{% if not input %}
+				<input type="text" name="input" id="query">
+			{% endif %}
+			
+			{% if input %}
+				<input type="text" name="input" id="query" value={{ input }}>
+			{% endif %}
+			<br>
+			<label for="corpus">Corpus:</label>
+
+			{% if not corpus or corpus == 'c' %}
+				<select id="corpus" name="corpus">
+					<option value="t">Title</option>
+					<option value="d">Description</option>
+					<option value="c" selected>Content</option>
+				</select>
+			{% endif %}
+
+			{% if corpus == 't' %}
+				<select id="corpus" name="corpus">
+					<option value="t" selected>Title</option>
+					<option value="d">Description</option>
+					<option value="c">Content</option>
+				</select>
+			{% endif %}
+
+			{% if corpus == 'd' %}
+				<select id="corpus" name="corpus">
+					<option value="t">Title</option>
+					<option value="d"selected>Description</option>
+					<option value="c">Content</option>
+				</select>
+			{% endif %}
+			<br>
+			<input type="submit" value="Submit" style="margin-left: 88px;" />
+		</form>
+
+		{% if success == True %}
+			<br>
+			{% if corpus == 't' %}
+				<h2>Search results for {{ input }} (based on video titles):</h2>
+			{% endif %}
+			{% if corpus == 'd' %}
+				<h2>Search results for {{ input }} (based on video descriptions):</h2>
+			{% endif %}
+			{% if not corpus or corpus == 'c' %}
+				<h2>Search results for {{ input }} (based on video transcripts):</h2>
+			{% endif %}
+			<table id="result" style="overflow-x:auto;">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for res in results %}
+					<tr>
+						<td>{{ res.title }}</td>
+						<td>{{ res.description }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+
+		{% if success == False %}
+			<br>
+			{% if corpus == 't' %}
+				<h2>Error searching for {{ input }} (based on video titles).</h2>
+			{% endif %}
+			{% if corpus == 'd' %}
+				<h2>Error searching for {{ input }}( based on video descriptions).</h2>
+			{% endif %}
+			{% if not corpus or corpus == 'c' %}
+				<h2>Error searching for {{ input }} (based on video transcripts).</h2>
+			{% endif %}
+		{% endif %}
+	</body>
+</html>
