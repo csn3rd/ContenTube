@@ -4,10 +4,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			body {
+				color: Red;
 				width: 90%;
 				height: 90%;
 				margin: auto;
 				margin-top: 5%;
+				font-family: Helvetica;
 			}
 
 			h1,h3 {
@@ -15,6 +17,7 @@
 			}
 
 			table {
+				color: Black;
 				border-collapse: collapse;
 				width: 100%;
 				border: 2px solid black;
@@ -27,6 +30,8 @@
 
 			thead {
 				border-bottom: 2px solid black;
+				font-weight: 700;
+				font-size: 20px;
 			}
 
 			th, td {
@@ -49,29 +54,30 @@
 			}
 
 			input, select {
+				color: Black;
 				width: 90%;
 				margin: 5px;
 				display: inline-block;
 			}
 
 			a:link, a:visited, a:active {
-				color: blue;
+				color: Black;
 				text-decoration: underline;
 			}
 
 			a:hover {
-				color: DarkBlue;
+				color: IndianRed;
 				text-decoration: underline;
 			}
 		</style>
 	</head>
 	<body>
 		{% if not (success == True or success == False) %}
-			<div style="margin-top: 20%;"></div>
+			<div style="margin-top: 22%;"></div>
 		{% endif %}
 		
 		<h1>ContenTube</h1>
-		<h3>The ultimate search engine for videos. No more clickbait!<br><p>By <a href="https://github.com/defroni">Dan</a> and <a href="https://github.com/CSN3RD">Jonathan</a></p></h3>
+		<h3>The ultimate search engine for videos. No more clickbait!<br><p style="color: black;">By <a href="https://github.com/defroni">Dan</a> and <a href="https://github.com/CSN3RD">Jonathan</a></p></h3>
 		<form method="post" action="{{ url_for('result') }}" id="query_form">
 			<label for="input">Query:</label>
 			
@@ -80,7 +86,7 @@
 			{% endif %}
 			
 			{% if input %}
-				<input type="text" name="input" id="query" value={{ input }}>
+				<input type="text" name="input" id="query" value="{{input}}">
 			{% endif %}
 			<br>
 			<label for="corpus">Corpus:</label>
@@ -109,23 +115,24 @@
 				</select>
 			{% endif %}
 			<br>
-			<input type="submit" value="Submit" style="margin-left: 88px;" />
+			<input type="submit" value="submit" style="margin-left: 88px; color: Red; font-weight: 700; text-transform: uppercase; font-size: 24px;"/>
 		</form>
 
 		{% if success == True %}
 			<br>
 			{% if corpus == 't' %}
-				<h2>Search results for {{ input }} (based on video titles):</h2>
+				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video titles</span>):</h2>
 			{% endif %}
 			{% if corpus == 'd' %}
-				<h2>Search results for {{ input }} (based on video descriptions):</h2>
+				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video descriptions</span>):</h2>
 			{% endif %}
 			{% if not corpus or corpus == 'c' %}
-				<h2>Search results for {{ input }} (based on video transcripts):</h2>
+				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video transcripts</span>):</h2>
 			{% endif %}
 			<table id="result" style="overflow-x:auto;">
 				<thead>
 					<tr>
+						<th></th>
 						<th>Title</th>
 						<th>Description</th>
 					</tr>
@@ -133,6 +140,7 @@
 				<tbody>
 					{% for res in results %}
 					<tr>
+						<td><span style="color: Red; font-weight: 700; text-transform: uppercase; font-size: 18px">{{ loop.index0+1 }}.</span></td>
 						<td>{{ res.title }}</td>
 						<td>{{ res.description }}</td>
 					</tr>
