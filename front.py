@@ -18,6 +18,7 @@ def result():
 	corpus = request.form['corpus']
 
 	try:
+		assert('c' in query)
 		res = []
 
 		if corpus == "t":

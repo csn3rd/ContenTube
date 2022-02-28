@@ -3,24 +3,64 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: auto;
+			}
+
 			body {
-				color: Red;
-				width: 90%;
-				height: 90%;
-				margin: auto;
-				margin-top: 5%;
+				display: flex;
+				flex-direction: column;
+				color: Black;
+				margin: 0 auto;
 				font-family: Helvetica;
+				font-size: 18px;
+			}
+
+			.content {
+				flex: 1 0 auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 			}
 
 			h1,h3 {
+				color: Red;
 				text-align: center;
+				margin: .5% auto;
+			}
+
+			{% if success==True %}
+			h1 {
+				margin-top: 2%;
+			}
+			{% endif %}
+
+			h1 a:link, h1 a:visited, h1 a:active {
+				color: Red;
+				text-decoration: underline;
+			}
+
+			h1 a:hover {
+				color: Black;
+				text-decoration: underline;
+			}
+
+			h2 {
+				color: Red;
+				width: 90%;
+				margin: .5% auto;
 			}
 
 			table {
-				color: Black;
 				border-collapse: collapse;
-				width: 100%;
+				width: 90%;
 				border: 2px solid black;
+				margin: 2% auto 3% auto;
 			}
 
 			table.center {
@@ -45,19 +85,26 @@
 			}
 
 			form {
-				margin: auto;
+				display: table;
+				margin: 1% auto;
 				align-content: center;
+				width: 90%;
 			}
 
 			label {
+				display: table-row;
 				margin-left: 2%;
 			}
 
 			input, select {
+				display: table-row;
 				color: Black;
-				width: 90%;
-				margin: 5px;
-				display: inline-block;
+				margin: .5% auto;
+				width: 100%;
+			}
+
+			span {
+				color: Black;
 			}
 
 			a:link, a:visited, a:active {
@@ -66,70 +113,101 @@
 			}
 
 			a:hover {
-				color: IndianRed;
+				color: Red;
 				text-decoration: underline;
 			}
+
+			.tnum {
+				color: Red;
+				font-weight: 700;
+				text-transform: uppercase;
+				font-size: 18px;
+			}
+
+			.submit {
+				color: Red;
+				font-weight: 700;
+				text-transform: uppercase;
+				font-size: 24px;
+				margin-top: .8%;
+			}
+
+			#result {
+				overflow-x:auto;
+			}
+
+			footer {
+				flex-shrink: 0;
+				text-align: center;
+				background-color: LightGray;
+				padding: .8%;
+				display: flex;
+				flex-flow: row wrap;
+			}
+
+			footer p {
+				width: 20%;
+				margin: .4% auto;
+			}
+
 		</style>
 	</head>
 	<body>
-		{% if not (success == True or success == False) %}
-			<div style="margin-top: 22%;"></div>
-		{% endif %}
-		
-		<h1>ContenTube</h1>
-		<h3>The ultimate search engine for videos. No more clickbait!<br><p style="color: black;">By <a href="https://github.com/defroni">Dan</a> and <a href="https://github.com/CSN3RD">Jonathan</a></p></h3>
-		<form method="post" action="{{ url_for('result') }}" id="query_form">
-			<label for="input">Query:</label>
-			
-			{% if not input %}
-				<input type="text" name="input" id="query">
-			{% endif %}
-			
-			{% if input %}
-				<input type="text" name="input" id="query" value="{{input}}">
-			{% endif %}
-			<br>
-			<label for="corpus">Corpus:</label>
+		<div class="content">
+			<h1><a href="/">ContenTube</a></h1>
+			<h3>The ultimate search engine for videos. No more clickbait!</h3>
+			<form method="post" action="{{ url_for('result') }}" id="query_form">
+				<label for="input">Query:</label>
 
-			{% if not corpus or corpus == 'c' %}
+				{% if not input %}
+					<input type="text" name="input" id="query">
+				{% endif %}
+
+				{% if input %}
+					<input type="text" name="input" id="query" value="{{input}}">
+				{% endif %}
+				<br>
+				<label for="corpus">Corpus:</label>
+
+				{% if not corpus or corpus == 'c' %}
 				<select id="corpus" name="corpus">
 					<option value="t">Title</option>
 					<option value="d">Description</option>
 					<option value="c" selected>Content</option>
 				</select>
-			{% endif %}
+				{% endif %}
 
-			{% if corpus == 't' %}
+				{% if corpus == 't' %}
 				<select id="corpus" name="corpus">
 					<option value="t" selected>Title</option>
 					<option value="d">Description</option>
 					<option value="c">Content</option>
 				</select>
-			{% endif %}
+				{% endif %}
 
-			{% if corpus == 'd' %}
+				{% if corpus == 'd' %}
 				<select id="corpus" name="corpus">
 					<option value="t">Title</option>
 					<option value="d"selected>Description</option>
 					<option value="c">Content</option>
 				</select>
-			{% endif %}
-			<br>
-			<input type="submit" value="submit" style="margin-left: 88px; color: Red; font-weight: 700; text-transform: uppercase; font-size: 24px;"/>
-		</form>
+				{% endif %}
+				<br>
+				<input type="submit" value="submit" class="submit"/>
+			</form>
 
-		{% if success == True %}
+			{% if success == True %}
 			<br>
 			{% if corpus == 't' %}
-				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video titles</span>):</h2>
+			<h2>Search results for <span>"{{ input }}"</span> (based on <span>video titles</span>):</h2>
 			{% endif %}
 			{% if corpus == 'd' %}
-				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video descriptions</span>):</h2>
+			<h2>Search results for <span>"{{ input }}"</span> (based on <span>video descriptions</span>):</h2>
 			{% endif %}
 			{% if not corpus or corpus == 'c' %}
-				<h2>Search results for <span style="color: Black;">{{ input }}</span> (based on <span style="color: Black;">video transcripts</span>):</h2>
+			<h2>Search results for <span>"{{ input }}"</span> (based on <span>video transcripts</span>):</h2>
 			{% endif %}
-			<table id="result" style="overflow-x:auto;">
+			<table id="result">
 				<thead>
 					<tr>
 						<th></th>
@@ -140,26 +218,33 @@
 				<tbody>
 					{% for res in results %}
 					<tr>
-						<td><span style="color: Red; font-weight: 700; text-transform: uppercase; font-size: 18px">{{ loop.index0+1 }}.</span></td>
+						<td><div class="tnum">{{ loop.index0+1 }}.</div></td>
 						<td>{{ res.title }}</td>
 						<td>{{ res.description }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
 			</table>
-		{% endif %}
+			{% endif %}
 
-		{% if success == False %}
+			{% if success == False %}
 			<br>
 			{% if corpus == 't' %}
-				<h2>Error searching for {{ input }} (based on video titles).</h2>
+			<h2>Error searching for <span>"{{ input }}"</span> (based on video titles).</h2>
 			{% endif %}
 			{% if corpus == 'd' %}
-				<h2>Error searching for {{ input }}( based on video descriptions).</h2>
+			<h2>Error searching for <span>"{{ input }}"</span> ( based on video descriptions).</h2>
 			{% endif %}
 			{% if not corpus or corpus == 'c' %}
-				<h2>Error searching for {{ input }} (based on video transcripts).</h2>
+			<h2>Error searching for <span>"{{ input }}"</span> (based on video transcripts).</h2>
 			{% endif %}
-		{% endif %}
+			<br>
+			{% endif %}
+		</div>
+		<footer>
+			<p style="text-align: left;">CSCI 182: Web and Data Mining</p>
+			<p style="text-align: center;">By <a href="https://github.com/defroni">Dan</a> and <a href="https://github.com/CSN3RD">Jonathan</a></p>
+			<p style="text-align: right;">Copyright &copy; 2022 All Rights Reserved</p>
+		</footer>
 	</body>
 </html>
