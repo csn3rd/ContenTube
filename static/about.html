@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: auto;
+			}
+
+			body {
+				display: flex;
+				flex-direction: column;
+				color: Black;
+				margin: 0 auto;
+				font-family: Helvetica;
+				font-size: 18px;
+			}
+
+			.content {
+				flex: 1 0 auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				/*align-items: center;*/
+			}
+
+			.hdr {
+				width: 100%;
+				text-align: center;
+			}
+
+			.hdr h1 {
+				color: Red;
+				margin: .5% auto;
+				margin-top: 2%;
+			}
+
+			h3 {
+				color: #800000;
+				width: 90%;
+				margin: .5% auto;
+				margin-top: 1.5%;
+			}
+
+			.hdr h3 {
+				color: Black;
+				margin: 0 auto;
+			}
+
+			.hdr h1 a:link, .hdr h1 a:visited, .hdr h1 a:active {
+				color: Red;
+				text-decoration: underline;
+			}
+
+			.hdr h1 a:hover {
+				color: Black;
+				text-decoration: underline;
+			}
+
+			h2 {
+				color: Red;
+				width: 90%;
+				margin: .5% auto;
+				margin-top: 1.5%;
+			}
+
+			p, ol, ul {
+				width: 90%;
+				margin: .5% auto;
+			}
+
+			img {
+				margin: 0 auto;
+			}
+
+			ol ul, ul ul {
+				width: 90%;
+				margin: .5% 0 .5% 0;
+			}
+
+
+			span {
+				color: Black;
+			}
+
+			a:link, a:visited, a:active {
+				color: Black;
+				text-decoration: underline;
+			}
+
+			a:hover {
+				color: #800000;
+				text-decoration: underline;
+			}
+
+			img {
+				margin: 1.5% auto;
+			}
+
+			footer {
+				flex-shrink: 0;
+				background-color: LightGray;
+				padding: .8%;
+				display: flex;
+				flex-flow: row wrap;
+			}
+
+			footer p {
+				width: 20%;
+				margin: .4% auto;
+				text-align: center;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div class="hdr">
+				<h1><a href="/">ContenTube</a></h1>
+				<h3>Ultimate Search Engine for Videos</h3>
+			</div>
+			<h2>What is ContenTube?</h2>
+			<p>The goal of ContenTube is to be the best <strong>search engine</strong> for <strong>videos</strong>.</p>
+			<p>Over time, sites like <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" title="Youtube">Youtube</a>, <a href="https://www.facebook.com/watch/" target="_blank" rel="noopener noreferrer" title="Facebook Watch">Facebook Watch</a>, and <a href="https://vimeo.com/" target="_blank" rel="noopener noreferrer" title="Vimeo">Vimeo</a> have driven creators to <i>"play the algorithm"</i> by prioritizing <strong>views</strong> as the key revenue metric. Hence, methods that generate more clicks have become widespread. Examples of this include:</p>
+			<ol>
+				<li>Titles</li>
+				<ul>
+					<li>Clickbait / Fake</li>
+					<li>Trendy / Hot Topic</li>
+					<li>Controversial Take</li>
+				</ul>
+				<li>Description</li>
+				<ul>
+					<li>Paid promotion (sponsor ads)</li>
+					<li>Affiliate products / programs</li>
+					<li>Shameless plugs</li>
+					<ul>
+						<li>Websites</li>
+						<li>Social media</li>
+						<li>Other videos</li>
+					</ul>
+					<li>Unrelated #hashtags</li>
+				</ul>
+			</ol>
+			<p>Thus, by <strong>limiting</strong> search corpora to <strong>video titles</strong> and <strong>descriptions</strong>, existing services provide <strong>low-quality</strong> search functionality for their customers.</p>
+			<p>In contrast, ContenTube provides an <strong>exceptional content-based</strong> search, utilizing <i>AI</i> and <i>human-generated</i> <strong>transcripts</strong>.</p>
+			<h3>Offered Search Criterion (Corpus)</h3>
+			<ol type="i">
+				<li>Title</li>
+				<li>Description</li>
+				<li>Transcript</li>
+			</ol>
+			<h3>Offered Videos (Documents)</h3>
+			<ul>
+				<li>Ted Talks </li>
+				<li>Podcasts*</li>
+				<li>Clickbait*</li>
+				<li>Pet Care*</li>
+				<sub>&nbsp;* Coming soon</sub>
+			</ul>
+
+			<h2>How does ContenTube work?</h2>
+			<h3><i>TL;DR</i></h3>
+			<ol>
+				<li>TF-IDF &harr; get the importance of each word in a video</li>
+				<li>Cosine Similarity &harr; get the similarity of each video for a query</li>
+			</ol>
+			<h3><i>Detailed Explanation</i></h3>
+			<p>We created ContenTube using techniques and algorithms in the field of <strong>Information Retrieval</strong>.</p>
+			<p>Specifically, we utilized the <strong>vector space model</strong>, where each video and query is represented as a <i>vector</i> in the multi-dimensional space of terms. To obtain these vectors, we implemented a statistical heuristic called <strong>TF-IDF</strong> (term frequency - inverse document frequency).</p>
+			<img src="/static/tfidf.png" title = "TF-IDF" alt="TF-IDF" width="25%">
+			<br>
+			<p>When a search is submitted, each video is scored on how well it matches the given query. This is calculated using a measure called <strong>cosine similarity</strong>.</p>
+			<img src="/static/cosine-similarity.png" titl = "Cosine Similarity" alt="Cosine Similarity" width="30%">
+			
+			<h2>How good is ContenTube?</h2>
+			<h3>Evaluation Method</h3>
+			<p>We evaluated ContenTube using metrics in the field of <strong>Information Retrieval</strong>.</p>
+			<p>Specifically, we compared the <strong>ranking quality</strong> of our <i>content-based</i> system to the other 2 systems.</p>
+			<ul>
+				<li>Order unaware metrics</li>
+				<ul>
+					<li>Precision (P)</li>
+					<li>Recall (R)</li>
+					<li>Accuracy (A)</li>
+					<li>F1 Score (F)</li>
+				</ul>
+				<li>Order aware metrics</li>
+				<ul>
+					<li>Mean Reciprocol Rank (MRR)</li>
+					<li>Average Precision (AP)</li>
+					<li>Mean Average Precision (MAP)</li>
+					<li>Cumulative Gain (CG)</li>
+					<li>Discounted Cumulative Gain (DCG)</li>
+					<li>Normalized Discounted Cumulative Gain (NDCG)</li>
+				</ul>
+			</ul>
+			<h3>Results</h3>
+			<p>Coming Soon!</p>
+			<h2>&zwnj;</h2>
+		</div>
+		<footer>
+			<p><a href="/about" rel="noopener noreferrer" title="About ContenTube">About ContenTube</a></p>
+			<p>By <a href="https://github.com/defroni" target="_blank" rel="noopener noreferrer" title="Dan Github">Dan</a> and <a href="https://github.com/CSN3RD" target="_blank" rel="noopener noreferrer" title="Jonathan Github">Jonathan</a></p>
+			<p>&copy; 2022 ContenTube. All rights reserved.</p>
+		</footer>
+	</body>
+</html>

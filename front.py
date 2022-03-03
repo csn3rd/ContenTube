@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, send_from_directory, request
 import random, string
 
 def randomword(length):
@@ -39,6 +39,10 @@ def result():
 		return render_template('index.html', input=query, corpus=corpus, success=True, results=res)
 	except:
 		return render_template('index.html', input=query, corpus=corpus, success=False)
+
+@app.route('/about', methods=['GET'])
+def about():
+	return send_from_directory('static','about.html')
 
 if __name__ == '__main__':
 	app.debug = True
