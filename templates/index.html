@@ -39,6 +39,7 @@
 			}
 
 			.hdr h3 {
+				color: Black;
 				margin: 0 auto;
 			}
 
@@ -64,11 +65,16 @@
 				margin: .5% auto;
 			}
 
+			h3 {
+				color: Red;
+			}
+
 			table {
 				border-collapse: collapse;
 				width: 90%;
 				border: 2px solid black;
 				margin: 2% auto 3% auto;
+				/*table-layout:fixed;*/
 			}
 
 			table.center {
@@ -86,6 +92,19 @@
 				text-align: left;
 				padding: 16px;
 				border: 1px solid grey;
+				align-content: center;
+			}
+
+			td:nth-child(1) {
+				width: 36%;
+			}
+
+			td:nth-child(2) {
+				width: 27%;
+			}
+
+			td:nth-child(3) {
+				width: 27%;
 			}
 
 			tr:nth-child(even) {
@@ -128,13 +147,6 @@
 				text-decoration: underline;
 			}
 
-			.tnum {
-				color: Red;
-				font-weight: 700;
-				text-transform: uppercase;
-				font-size: 18px;
-			}
-
 			.submit {
 				color: Red;
 				font-weight: 700;
@@ -145,6 +157,10 @@
 
 			#result {
 				overflow-x:auto;
+			}
+
+			img {
+				width: 100%;
 			}
 
 			footer {
@@ -223,17 +239,17 @@
 			<table id="result">
 				<thead>
 					<tr>
-						<th></th>
-						<th>Title</th>
-						<th>Description</th>
+						<th>Talk</th>
+						<th>Details</th>
+						<th>Speaker</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for res in results %}
 					<tr>
-						<td><div class="tnum">{{ loop.index0+1 }}.</div></td>
-						<td>{{ res.title }}</td>
-						<td>{{ res.description }}</td>
+						<td><h3>{{ res.name }}</h3><img src="{{ res.pic }}"></td>
+						<td><p><a href="{{ res.link }}" target="_blank" rel="noopener noreferrer">Link to talk</a></p>{% if res.date != None %}<p>Recorded on: {{ res.date }}</p>{% endif %}<p>Length: {{ res.duration }}</p><p>{{ res.description }}</p></td>
+						<td>{% if res.speaker != None %}<h3>{{ res.speaker }}{% endif %}<span>{% if res.speaker_des != None %} - {{ res.speaker_des }}{% endif %}{% if res.speaker_pic != None %}</span></h3><img src="{{ res.speaker_pic }}">{% endif %}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
