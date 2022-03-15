@@ -120,7 +120,7 @@ def search(srch, typ):
 	best_ind = sorted(range(0,len(sims)), key=lambda k: sims[k])
 	best = []
 	i = 1
-	while i < len(10) and sims[best_ind[-i]] > 0.02:
+	while i < 11 and sims[best_ind[-i]] > 0.02:
 		best += [get_talk(best_ind[-i])]
 		print(best[i-1].name, sims[best_ind[-i]])
 		i+=1
